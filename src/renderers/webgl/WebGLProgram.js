@@ -247,7 +247,7 @@ function loopReplacer( match, start, end, snippet ) {
 
 }
 
-//
+
 
 function generatePrecision( parameters ) {
 
@@ -377,7 +377,14 @@ function generateEnvMapBlendingDefine( parameters ) {
 
 }
 
-function WebGLProgram( renderer, extensions, code, material, shader, parameters ) {
+
+// <<<<<<< HEAD
+// function WebGLProgram( renderer, extensions, code, material, shader, parameters, capabilities, textures, bindingStates ) {
+// =======
+// //
+// >>>>>>> dev
+
+function WebGLProgram( renderer, extensions, code, material, shader, parameters, bindingStates ) {
 
 	var gl = renderer.getContext();
 
@@ -874,6 +881,8 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters 
 	// free resource
 
 	this.destroy = function () {
+
+		bindingStates.releaseStatesOfProgram( this );
 
 		gl.deleteProgram( program );
 		this.program = undefined;

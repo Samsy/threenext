@@ -318,11 +318,6 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 	var depthBuffer = new DepthBuffer();
 	var stencilBuffer = new StencilBuffer();
 
-	var maxVertexAttributes = gl.getParameter( gl.MAX_VERTEX_ATTRIBS );
-	var newAttributes = new Uint8Array( maxVertexAttributes );
-	var enabledAttributes = new Uint8Array( maxVertexAttributes );
-	var attributeDivisors = new Uint8Array( maxVertexAttributes );
-
 	var enabledCapabilities = {};
 
 	var compressedTextureFormats = null;
@@ -411,6 +406,8 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	//
 
+// <<<<<<< HEAD
+// =======
 	function initAttributes() {
 
 		for ( var i = 0, l = newAttributes.length; i < l; i ++ ) {
@@ -915,17 +912,6 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	function reset() {
 
-		for ( var i = 0; i < enabledAttributes.length; i ++ ) {
-
-			if ( enabledAttributes[ i ] === 1 ) {
-
-				gl.disableVertexAttribArray( i );
-				enabledAttributes[ i ] = 0;
-
-			}
-
-		}
-
 		enabledCapabilities = {};
 
 		compressedTextureFormats = null;
@@ -954,10 +940,6 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 			stencil: stencilBuffer
 		},
 
-		initAttributes: initAttributes,
-		enableAttribute: enableAttribute,
-		enableAttributeAndDivisor: enableAttributeAndDivisor,
-		disableUnusedAttributes: disableUnusedAttributes,
 		enable: enable,
 		disable: disable,
 		getCompressedTextureFormats: getCompressedTextureFormats,

@@ -18,7 +18,9 @@ function InstancedBufferAttribute( array, itemSize, normalized, meshPerAttribute
 
 	BufferAttribute.call( this, array, itemSize, normalized );
 
-	this.meshPerAttribute = meshPerAttribute || 1;
+	this._meshPerAttribute = meshPerAttribute || 1;
+
+	this.versionVAO = 0;
 
 }
 
@@ -52,6 +54,25 @@ InstancedBufferAttribute.prototype = Object.assign( Object.create( BufferAttribu
 
 } );
 
+Object.defineProperties( InstancedBufferAttribute.prototype, {
 
+	meshPerAttribute: {
+
+		get: function () {
+
+			return this._meshPerAttribute;
+
+		},
+
+		set: function ( value ) {
+
+			this._meshPerAttribute = value;
+			this.versionVAO ++;
+
+		}
+
+	}
+
+} );
 
 export { InstancedBufferAttribute };

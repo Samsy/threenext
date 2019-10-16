@@ -6,7 +6,7 @@ import { Uint16BufferAttribute, Uint32BufferAttribute } from '../../core/BufferA
 import { BufferGeometry } from '../../core/BufferGeometry.js';
 import { arrayMax } from '../../utils.js';
 
-function WebGLGeometries( gl, attributes, info ) {
+function WebGLGeometries( gl, attributes, info, bindingStates ) {
 
 	var geometries = new WeakMap();
 	var wireframeAttributes = new WeakMap();
@@ -40,6 +40,8 @@ function WebGLGeometries( gl, attributes, info ) {
 			wireframeAttributes.delete( buffergeometry );
 
 		}
+
+		bindingStates.releaseStatesOfGeometry( geometry );
 
 		//
 
@@ -81,14 +83,9 @@ function WebGLGeometries( gl, attributes, info ) {
 
 	function update( geometry ) {
 
-		var index = geometry.index;
 		var geometryAttributes = geometry.attributes;
 
-		if ( index !== null ) {
-
-			attributes.update( index, gl.ELEMENT_ARRAY_BUFFER );
-
-		}
+		// Updating index buffer in VAO now. See WebGLBindingStates.
 
 		for ( var name in geometryAttributes ) {
 
@@ -157,7 +154,7 @@ function WebGLGeometries( gl, attributes, info ) {
 		var attribute = new ( arrayMax( indices ) > 65535 ? Uint32BufferAttribute : Uint16BufferAttribute )( indices, 1 );
 		attribute.version = version;
 
-		attributes.update( attribute, gl.ELEMENT_ARRAY_BUFFER );
+		// Updating index buffer in VAO now. See WebGLBindingStates
 
 		//
 

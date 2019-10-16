@@ -18,23 +18,79 @@ function BufferAttribute( array, itemSize, normalized ) {
 
 	this.name = '';
 
-	this.array = array;
-	this.itemSize = itemSize;
+	this._array = array;
+	this._itemSize = itemSize;
 	this.count = array !== undefined ? array.length / itemSize : 0;
-	this.normalized = normalized === true;
+	this._normalized = normalized === true;
 
 	this.usage = StaticDrawUsage;
 	this.updateRange = { offset: 0, count: - 1 };
 
 	this.version = 0;
+	this.versionVAO = 0;
 
 }
 
-Object.defineProperty( BufferAttribute.prototype, 'needsUpdate', {
+Object.defineProperties( BufferAttribute.prototype, {
 
-	set: function ( value ) {
+	needsUpdate: {
 
-		if ( value === true ) this.version ++;
+		set: function ( value ) {
+
+			if ( value === true ) this.version ++;
+
+		}
+
+	},
+
+	array: {
+
+		get: function () {
+
+			return this._array;
+
+		},
+
+		set: function ( value ) {
+
+			this._array = value;
+			this.versionVAO ++;
+
+		}
+
+	},
+
+	itemSize: {
+
+		get: function () {
+
+			return this._itemSize;
+
+		},
+
+		set: function ( value ) {
+
+			this._itemSize = value;
+			this.versionVAO ++;
+
+		}
+
+	},
+
+	normalized: {
+
+		get: function () {
+
+			return this._normalized;
+
+		},
+
+		set: function ( value ) {
+
+			this._normalized = value;
+			this.versionVAO ++;
+
+		}
 
 	}
 
